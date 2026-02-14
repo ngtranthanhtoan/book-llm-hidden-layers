@@ -1,456 +1,239 @@
-You are a co-author helping me write a definitive book titled "The Hidden Layers: What Really Happens Between Your Message and AI's Response."
+# The Hidden Layers
 
-## Book Vision
-This is a comprehensive, deep book that reveals EVERYTHING happening beneath the surface when a human interacts with an LLM. Most people see a text box and a response. This book opens up the entire machine — every classifier, every reasoning step, every hidden decision, every internal conflict the AI resolves — and explains it in plain English.
-
-The audience is curious, intelligent people who are NOT engineers. Think: business professionals, writers, educators, policymakers, journalists, power users, and anyone who wants to go from casual AI user to someone who truly understands the machine they're talking to daily. By the end, the reader should feel like they have X-ray vision into every AI conversation.
-
-This is NOT a "how to build an LLM" book. This is a "how does the LLM actually think, decide, struggle, and respond" book. The practical payoff: once you understand the hidden layers, you become dramatically more effective at working with AI.
-
-## Tone & Style
-- Like a brilliant documentary narrator — authoritative but never boring
-- The reader should feel like they're being let backstage at the most advanced technology in the world
-- Use analogies from everyday life (restaurants, orchestras, courtrooms, hospitals, construction sites)
-- Maintain a sense of wonder — this technology IS remarkable, don't be cynical about it
-- Occasionally funny, always clear, never condescending
-- When explaining something complex, slow down and use multiple angles (analogy + example + "imagine you..." scenario)
-
-## Writing Principles
-- NO jargon without immediate plain-English explanation
-- NO math notation — describe mathematical intuition with words and analogies
-- Every abstract concept gets: (1) an analogy, (2) a concrete example, (3) a "what you experience as a user" connection
-- Include "This Is Why..." boxes throughout — connecting technical concepts to AI behaviors the reader has already noticed but never understood. Examples:
-  - "This is why the AI gives different answers when you rephrase the same question"
-  - "This is why asking 'are you sure?' actually changes the AI's answer"
-  - "This is why the AI sometimes refuses something harmless"
-  - "This is why longer prompts often get better results"
-  - "This is why the AI is confident about wrong answers"
-- Include "Behind The Curtain" sidebars with surprising, counterintuitive, or little-known facts
-- Include "Try This Now" practical exercises the reader can test immediately with ChatGPT or Claude
-- Include "Pro Tip" boxes with actionable prompting strategies derived from the concept just explained
-- End each chapter with:
-  - A plain-English summary (1 paragraph)
-  - 5 key takeaways
-  - 3 "Now You Know Why..." statements connecting to real user experiences
-  - 3 actionable strategies to apply immediately
-- Target length: 5,000-8,000 words per chapter
-- Total book: approximately 100,000-120,000 words
-
-## Book Structure
-
-### PART 1: WHAT YOU'RE ACTUALLY TALKING TO
-Setting the foundation — the reader needs a correct mental model before we can reveal the hidden layers.
-
-**Chapter 1: The Billion-Dollar Autocomplete**
-- What an LLM actually is at its deepest core: a next-token prediction engine trained on the internet
-- Why "just predicting the next word" produces something that behaves intelligently
-- The key mental shift: you're not querying a database, you're shaping a generation process
-- Brief history: from ELIZA to GPT to Claude — how we got here
-- The fundamental paradox: it doesn't "know" anything, yet it "knows" almost everything
-- What this book will reveal and why it matters
-- "Try This Now": ask the same question 5 times and observe the variation — this is your first clue that you're talking to a probability engine, not a lookup table
-
-**Chapter 2: How AI Reads — Tokenization and the First Translation**
-- Tokens: the AI doesn't see words, it sees pieces
-- Why "strawberry" letter-counting is hard (the token boundary problem)
-- How different languages and scripts get tokenized differently
-- The vocabulary: a fixed menu of ~100,000 pieces the AI can work with
-- Why token limits matter and how they constrain every conversation
-- "This Is Why...": the AI sometimes breaks words strangely, miscounts, or handles non-English text differently
-- "Try This Now": experiment with token-level quirks — word games, counting tasks, unusual formatting
-
-**Chapter 3: Meaning as Geography — Embeddings and Semantic Space**
-- How the AI converts tokens into positions in a vast mathematical space
-- Words with similar meanings live near each other
-- Why "king - man + woman = queen" works as vector arithmetic
-- How the AI "understands" that synonyms are related without being told
-- The embedding space as a map of all human knowledge and language
-- "This Is Why...": the AI can understand metaphors, analogies, and implied meaning
-- "Behind The Curtain": the embedding space has strange neighborhoods — what concepts does the AI consider "close together" that humans wouldn't expect?
-
-**Chapter 4: Patterns, Not Understanding**
-- What the AI actually learned during training: statistical patterns at unimaginable scale
-- The difference between "knows about" and "understands"
-- Why it can write poetry but fail at basic arithmetic
-- Why it can explain quantum physics but not reliably count objects in an image
-- The competence vs. comprehension gap
-- When to trust the AI and when to verify — a practical framework
-- Hallucination explained: confident pattern completion without grounding
-- "This Is Why...": the AI sounds equally confident whether it's right or wrong
-- "Try This Now": find the boundary — ask questions that gradually move from the AI's strength zone to its weakness zone
+**What Really Happens Between Your Message and AI's Response**
 
 ---
 
-### PART 2: THE INVISIBLE INFRASTRUCTURE
-Everything that happens BEFORE and AROUND the Transformer — the systems most users don't know exist.
+## Introduction
 
-**Chapter 5: The Prompt You Never Wrote — System Prompts and Hidden Context**
-- System prompts: thousands of invisible words shaping every response before you type anything
-- How personality, rules, capabilities, and boundaries are pre-defined
-- The actual context the model sees vs. the tiny message you typed
-- Why the same base model behaves completely differently in ChatGPT vs Claude vs Copilot vs a custom app
-- How companies use system prompts to create different "characters" from the same brain
-- Temperature, top-p, and other hidden settings that change behavior
-- "This Is Why...": the AI sometimes seems to have a different personality depending on where you use it
-- "This Is Why...": sometimes the AI "knows" things about you (like your name or preferences) — it was injected into the hidden context
-- "Behind The Curtain": what a real production system prompt looks like (thousands of tokens of instructions)
-- "Try This Now": experiment with custom instructions / system prompts — watch how dramatically the same model changes
+You type a message. A few seconds later, an answer appears — sometimes brilliant, sometimes baffling, occasionally wrong with absolute confidence. To most people, what happens in between is a black box.
 
-**Chapter 6: The Army of Classifiers — Dozens of Hidden AI Models Judging Every Message**
-- The classifier ensemble: specialized small models screening every input and output
-- Input classifiers (before the LLM even runs):
-  - Toxicity classifier
-  - Self-harm/suicide detection
-  - CSAM detection
-  - Violence and weapons classifier
-  - CBRN threat detection
-  - Jailbreak/prompt injection detection
-  - PII detection
-  - Copyright/IP detection
-  - Sexual content classifier
-  - Cyber/malware detection
-- Intent classifiers:
-  - What type of task is this?
-  - How complex is it?
-  - What domain is it in?
-  - What language is it in?
-  - Does it need tools?
-  - Is it politically/emotionally sensitive?
-- Image classifiers (when images are uploaded):
-  - NSFW detection
-  - Face detection (privacy protection)
-  - CSAM image scanning
-  - Content relevance scoring
-- How these classifiers can inject hidden warnings into the system prompt dynamically
-- "This Is Why...": sometimes the AI suddenly gets cautious or refuses mid-conversation — a classifier flagged something
-- "This Is Why...": rephrasing a refused request sometimes works — you changed the classifier score
-- "Behind The Curtain": the false positive problem — legitimate requests that trigger classifiers
+This book opens that box.
 
-**Chapter 7: The Routing Layer — Which Brain Answers Your Question**
-- Model routing: some systems use different models for different queries
-- Simple questions → smaller, faster model. Complex questions → larger, slower model
-- Complexity estimation and how it sometimes gets it wrong
-- Load balancing, rate limiting, and queue management
-- Why responses sometimes come fast and sometimes slow (it's not just "thinking")
-- A/B testing: you might be talking to a different model version than yesterday
-- "This Is Why...": response speed varies dramatically for seemingly similar questions
-- "Behind The Curtain": the economics of routing — why companies don't use their best model for everything
+*The Hidden Layers* is not a book about how to build an AI. It is a book about what is actually happening — right now, every time you talk to one. Every hidden instruction the AI reads before you type a word. Every classifier silently screening your message. Every layer of reasoning, self-critique, and compromise the machine works through before a single token of response appears on your screen.
 
-**Chapter 8: Memory, Context, and Why AI Forgets You**
-- Context windows: the AI's hard short-term memory limit
-- Why your conversation "resets" between sessions
-- How the AI decides what to keep and what to drop in long conversations
-- New persistent memory systems and how they actually work
-- RAG (Retrieval-Augmented Generation): when the AI searches documents to answer you
-- The memory retrieval pipeline: embeddings → search → ranking → injection
-- "This Is Why...": the AI sometimes "forgets" something from earlier in a long conversation
-- "This Is Why...": the AI sometimes "remembers" you from a past conversation — a memory system retrieved and injected that information
-- "Pro Tip": how to structure long conversations so the AI doesn't lose track of important context
-- "Try This Now": test the limits of AI memory — at what point does it start losing earlier context?
+By the time you finish this book, you will have something close to X-ray vision for every AI conversation. You will understand why the AI gives different answers when you rephrase the same question, why it sometimes refuses something harmless, why asking "are you sure?" genuinely changes the response, and why longer prompts often produce better results. More importantly, you will know exactly how to use that understanding to become dramatically more effective at working with AI.
+
+This book is written for curious, intelligent people who are *not* engineers — business professionals, writers, educators, policymakers, journalists, and anyone who wants to move from casual AI user to someone who truly understands the machine they are talking to every day. There is no math, no code, no jargon without an immediate plain-English explanation. Every concept is grounded in analogies from everyday life, concrete examples, and connections to behaviors you have already noticed but never understood.
+
+Welcome backstage at the most advanced technology in the world.
 
 ---
 
-### PART 3: THE ATTENTION ENGINE — HOW THE AI FOCUSES
-The core mechanism that makes everything work.
+## Table of Contents
 
-**Chapter 9: Attention — The Breakthrough That Changed Everything**
-- The Transformer explained in plain English
-- Attention as "which words should pay attention to which other words"
-- Why this was the single most important invention in modern AI
-- The analogy: attention as a room full of people, each one checking how relevant they are to everyone else
-- Single attention head: what one "perspective" looks like
-- Multi-head attention: dozens of simultaneous perspectives on the same text
-- Why parallel perspectives produce richer understanding than a single linear reading
-- "This Is Why...": the AI can track complex references ("she said that he told them about it") across long passages
-- "Behind The Curtain": researchers can actually visualize what attention heads look at — and different heads specialize in different types of relationships
+### Part 1: What You're Actually Talking To
 
-**Chapter 10: The Attention Patterns — What The AI Actually Focuses On**
-- Different types of attention heads and what they track:
-  - Syntactic heads (grammar structure)
-  - Coreference heads (pronoun resolution — "she" refers to whom?)
-  - Semantic heads (meaning and theme)
-  - Positional heads (what came first, what came recently)
-  - Task-framing heads (is this a question? a command? a conversation?)
-  - Constraint heads (rules, format requirements, limitations)
-- How the AI reads your message: not linearly, but as a web of relationships
-- Why word order matters — and sometimes doesn't
-- The attention map: a practical visualization of how the AI "sees" your prompt
-- "This Is Why...": the AI can pick up on subtle context clues you didn't realize you were giving
-- "This Is Why...": adding context sentences (even ones that seem redundant) can improve results — they give the attention mechanism more to work with
-- "Try This Now": experiment with reordering parts of your prompt — watch how it changes the response
+*Setting the foundation — building a correct mental model before we reveal the hidden layers.*
 
-**Chapter 11: Layer by Layer — The 80-Story Building of Thought**
-- What happens as your input passes through dozens of Transformer layers
-- Early layers (1-20): surface parsing — grammar, token grouping, basic recognition
-- Middle layers (20-50): semantic assembly — meaning, intent, context integration, knowledge retrieval
-- Deep layers (50-70): reasoning — cross-referencing, planning, constraint resolution, the "aha moment"
-- Final layers (70-80): output preparation — word selection, tone adjustment, format commitment
-- The "residual stream": how information flows and accumulates through all layers
-- Key insight: the AI has "decided" what to say by about layer 60 — the final layers are about HOW to say it
-- "Behind The Curtain": researchers have found that you can "read" intermediate layers to see the AI's rough draft at different stages
-- "This Is Why...": the AI's responses feel coherent and structured even for complex topics — the deep layers have already planned the structure before generation begins
+#### Chapter 1: The Billion-Dollar Autocomplete
+- [Lesson 1: What an LLM Actually Is](part-01-what-youre-actually-talking-to/chapter-01-the-billion-dollar-autocomplete/lesson-01-what-an-llm-actually-is.md)
+- [Lesson 2: Next-Token Prediction and Why It Works](part-01-what-youre-actually-talking-to/chapter-01-the-billion-dollar-autocomplete/lesson-02-next-token-prediction-and-why-it-works.md)
+- [Lesson 3: From ELIZA to GPT — A Brief History](part-01-what-youre-actually-talking-to/chapter-01-the-billion-dollar-autocomplete/lesson-03-from-eliza-to-gpt-a-brief-history.md)
+- [Lesson 4: The Paradox of Knowing Without Knowing](part-01-what-youre-actually-talking-to/chapter-01-the-billion-dollar-autocomplete/lesson-04-the-paradox-of-knowing-without-knowing.md)
+- [Lesson 5: Shaping Generation, Not Querying a Database](part-01-what-youre-actually-talking-to/chapter-01-the-billion-dollar-autocomplete/lesson-05-shaping-generation-not-querying-a-database.md)
+
+#### Chapter 2: How AI Reads — Tokenization
+- [Lesson 1: Tokens — The Pieces AI Actually Sees](part-01-what-youre-actually-talking-to/chapter-02-how-ai-reads-tokenization/lesson-01-tokens-the-pieces-ai-actually-sees.md)
+- [Lesson 2: The Token Boundary Problem](part-01-what-youre-actually-talking-to/chapter-02-how-ai-reads-tokenization/lesson-02-the-token-boundary-problem.md)
+- [Lesson 3: Languages, Scripts, and Unequal Tokenization](part-01-what-youre-actually-talking-to/chapter-02-how-ai-reads-tokenization/lesson-03-languages-scripts-and-unequal-tokenization.md)
+- [Lesson 4: The Vocabulary — A Fixed Menu of Pieces](part-01-what-youre-actually-talking-to/chapter-02-how-ai-reads-tokenization/lesson-04-the-vocabulary-a-fixed-menu-of-pieces.md)
+- [Lesson 5: Token Limits and Conversation Constraints](part-01-what-youre-actually-talking-to/chapter-02-how-ai-reads-tokenization/lesson-05-token-limits-and-conversation-constraints.md)
+
+#### Chapter 3: Meaning as Geography — Embeddings
+- [Lesson 1: From Tokens to Positions in Semantic Space](part-01-what-youre-actually-talking-to/chapter-03-meaning-as-geography-embeddings/lesson-01-from-tokens-to-positions-in-semantic-space.md)
+- [Lesson 2: Vector Arithmetic and Word Relationships](part-01-what-youre-actually-talking-to/chapter-03-meaning-as-geography-embeddings/lesson-02-vector-arithmetic-and-word-relationships.md)
+- [Lesson 3: The Knowledge Map — How Meaning Is Organized](part-01-what-youre-actually-talking-to/chapter-03-meaning-as-geography-embeddings/lesson-03-the-knowledge-map-how-meaning-is-organized.md)
+- [Lesson 4: Strange Neighborhoods in Embedding Space](part-01-what-youre-actually-talking-to/chapter-03-meaning-as-geography-embeddings/lesson-04-strange-neighborhoods-in-embedding-space.md)
+
+#### Chapter 4: Patterns, Not Understanding
+- [Lesson 1: Statistical Patterns at Unimaginable Scale](part-01-what-youre-actually-talking-to/chapter-04-patterns-not-understanding/lesson-01-statistical-patterns-at-unimaginable-scale.md)
+- [Lesson 2: Competence Versus Comprehension](part-01-what-youre-actually-talking-to/chapter-04-patterns-not-understanding/lesson-02-competence-versus-comprehension.md)
+- [Lesson 3: Hallucination — Confident Pattern Completion](part-01-what-youre-actually-talking-to/chapter-04-patterns-not-understanding/lesson-03-hallucination-confident-pattern-completion.md)
+- [Lesson 4: When to Trust and When to Verify](part-01-what-youre-actually-talking-to/chapter-04-patterns-not-understanding/lesson-04-when-to-trust-and-when-to-verify.md)
 
 ---
 
-### PART 4: THE HIDDEN THINKING — REASONING, PLANNING, AND SELF-CRITIQUE
-The most important part of the book. What happens inside the "thinking" process.
+### Part 2: The Invisible Infrastructure
 
-**Chapter 12: The Thinking You Never See — Extended Reasoning**
-- Chain-of-thought and extended thinking: the hidden scratchpad
-- What the thinking actually looks like (structure and phases):
-  - Phase 1: Comprehension — "What is the user actually asking?"
-  - Phase 2: Constraint mapping — "What rules do I need to follow?"
-  - Phase 3: Knowledge assessment — "What do I know? What am I uncertain about?"
-  - Phase 4: Planning — "How should I structure my response?"
-  - Phase 5: Drafting and self-critique — "Let me try... wait, that's not right..."
-  - Phase 6: Final check — "Does this actually answer the question?"
-- Why some questions trigger extensive thinking and others don't
-- The relationship between thinking time and answer quality
-- "This Is Why...": the AI sometimes takes 30 seconds before responding — it's going through all these phases
-- "This Is Why...": adding "think step by step" to your prompt literally activates more reasoning phases
-- "Try This Now": compare responses with and without "think carefully about this before answering"
+*Everything that happens before and around the Transformer — the systems most users don't know exist.*
 
-**Chapter 13: Intent Resolution — What Does The User Actually Want?**
-- The four layers of intent the AI resolves simultaneously:
-  - Surface intent: the literal words
-  - Implied intent: what you probably mean but didn't say
-  - Emotional intent: what's driving the request
-  - Meta intent: what kind of interaction you expect
-- How the AI reads intent signals:
-  - Word choice ("help me" vs "explain" vs "just do it")
-  - Specificity level (vague = needs guidance, specific = needs execution)
-  - Conversation history (what came before shapes interpretation)
-  - Emotional tone markers
-- Ambiguity resolution: how the AI picks an interpretation when multiple are valid
-- When intent resolution goes wrong and why
-- "This Is Why...": the AI sometimes answers a question you didn't ask — it resolved your intent differently than you intended
-- "This Is Why...": being more specific dramatically improves results — you're removing ambiguity from intent resolution
-- "Pro Tip": make your intent explicit at all four layers for best results
-- "Try This Now": give a deliberately vague request, then add one sentence of context — watch how the response transforms
+#### Chapter 5: The Prompt You Never Wrote
+- [Lesson 1: System Prompts — The Invisible Instructions](part-02-the-invisible-infrastructure/chapter-05-the-prompt-you-never-wrote/lesson-01-system-prompts-the-invisible-instructions.md)
+- [Lesson 2: Hidden Context and What the Model Really Sees](part-02-the-invisible-infrastructure/chapter-05-the-prompt-you-never-wrote/lesson-02-hidden-context-and-what-the-model-really-sees.md)
+- [Lesson 3: How Personality and Rules Are Pre-Defined](part-02-the-invisible-infrastructure/chapter-05-the-prompt-you-never-wrote/lesson-03-how-personality-and-rules-are-pre-defined.md)
+- [Lesson 4: Temperature, Top-p, and Hidden Settings](part-02-the-invisible-infrastructure/chapter-05-the-prompt-you-never-wrote/lesson-04-temperature-top-p-and-hidden-settings.md)
+- [Lesson 5: Same Brain, Different Characters](part-02-the-invisible-infrastructure/chapter-05-the-prompt-you-never-wrote/lesson-05-same-brain-different-characters.md)
 
-**Chapter 14: The Internal Debate — How AI Evaluates Its Own Answers**
-- Self-consistency checking: the AI argues with itself during thinking
-- How it weighs multiple valid approaches against each other
-- Confidence calibration: how the model decides between "definitely," "probably," and "I'm not sure"
-- The difference between genuine uncertainty and false confidence
-- When and why the AI second-guesses itself
-- How asking "are you sure?" or "is there another way?" actually triggers re-evaluation
-- The revision loop: draft → critique → revise → check
-- "This Is Why...": the AI sometimes changes its mind mid-response — it's self-correcting in real-time
-- "This Is Why...": asking "are you sure?" sometimes produces a completely different (and better) answer
-- "This Is Why...": the AI's first answer isn't always its best — it may have settled on the highest-probability response, not the best one
-- "Try This Now": ask a complex question, then say "play devil's advocate against your own answer" — watch the self-critique process happen explicitly
-- "Try This Now": ask "give me three approaches, evaluate each one, then recommend the best" — force the internal debate to become visible
+#### Chapter 6: The Army of Classifiers
+- [Lesson 1: The Classifier Ensemble Explained](part-02-the-invisible-infrastructure/chapter-06-the-army-of-classifiers/lesson-01-the-classifier-ensemble-explained.md)
+- [Lesson 2: Input Classifiers — Screening Every Message](part-02-the-invisible-infrastructure/chapter-06-the-army-of-classifiers/lesson-02-input-classifiers-screening-every-message.md)
+- [Lesson 3: Intent Classifiers — Understanding Your Task](part-02-the-invisible-infrastructure/chapter-06-the-army-of-classifiers/lesson-03-intent-classifiers-understanding-your-task.md)
+- [Lesson 4: Image Classifiers and Multimodal Screening](part-02-the-invisible-infrastructure/chapter-06-the-army-of-classifiers/lesson-04-image-classifiers-and-multimodal-screening.md)
+- [Lesson 5: The False Positive Problem](part-02-the-invisible-infrastructure/chapter-06-the-army-of-classifiers/lesson-05-the-false-positive-problem.md)
 
-**Chapter 15: The Intent Stack — How AI Juggles Competing Goals**
-- The seven simultaneous layers the AI is managing:
-  1. Literal task execution
-  2. User satisfaction
-  3. Quality standards
-  4. Safety constraints
-  5. Format expectations
-  6. Relationship management
-  7. Implicit knowledge application
-- How these layers conflict and how the AI resolves tradeoffs
-- Examples of intent stack conflicts:
-  - Accuracy vs. readability
-  - Completeness vs. brevity
-  - Helpfulness vs. safety
-  - Creativity vs. correctness
-  - Honesty vs. kindness
-- How RLHF training taught the model which tradeoffs humans prefer
-- Why different AI products resolve the same conflicts differently (different RLHF data)
-- "This Is Why...": sometimes the AI's response feels like a compromise — because it literally is
-- "This Is Why...": explicitly telling the AI which layer to prioritize ("prioritize accuracy over being concise") dramatically improves results
-- "Pro Tip": when you're unsatisfied with a response, identify which layer of the intent stack was wrong and correct it explicitly
+#### Chapter 7: The Routing Layer
+- [Lesson 1: Model Routing — Which Brain Answers](part-02-the-invisible-infrastructure/chapter-07-the-routing-layer/lesson-01-model-routing-which-brain-answers.md)
+- [Lesson 2: Complexity Estimation and Its Failures](part-02-the-invisible-infrastructure/chapter-07-the-routing-layer/lesson-02-complexity-estimation-and-its-failures.md)
+- [Lesson 3: Load Balancing and Queue Management](part-02-the-invisible-infrastructure/chapter-07-the-routing-layer/lesson-03-load-balancing-and-queue-management.md)
+- [Lesson 4: A/B Testing and the Economics of Routing](part-02-the-invisible-infrastructure/chapter-07-the-routing-layer/lesson-04-ab-testing-and-the-economics-of-routing.md)
 
-**Chapter 16: Task Decomposition — How AI Breaks Down Complex Requests**
-- How the model internally converts a complex message into sub-tasks
-- Simple requests: one sub-task, direct execution
-- Complex requests: the model creates an internal plan
-- The decomposition hierarchy:
-  - Understand → Plan → Research → Execute → Format → Verify
-- Why complex requests sometimes fail — the decomposition was wrong
-- How the model handles multi-part requests (and why it sometimes drops parts)
-- "This Is Why...": the AI sometimes answers only half your question — it decomposed your request and lost a sub-task
-- "This Is Why...": numbered lists of requirements get better results — you're doing the decomposition for the model
-- "Pro Tip": structure your complex requests as the AI naturally decomposes them — numbered steps, clear sub-tasks, explicit priorities
-- "Try This Now": give a complex 5-part request as one paragraph, then as 5 numbered items — compare completeness
-
-**Chapter 17: Policy Reasoning — The Internal Ethics Committee**
-- How the AI decides whether it should help with a request
-- The internal deliberation: "Is this safe? Is this appropriate? How should I handle this?"
-- The safety spectrum: clearly safe → gray area → clearly unsafe
-- How the model reasons about edge cases and ambiguous requests
-- Why the same request gets different treatment depending on context
-- The refusal decision tree: what the AI considers before saying "I can't help with that"
-- False positives: legitimate requests that look dangerous to the model
-- The over-refusal problem and how companies try to balance it
-- "This Is Why...": the AI sometimes refuses something completely harmless — it matched a pattern that looked risky
-- "This Is Why...": adding context about WHY you need something can unlock a refused request — you changed the policy reasoning
-- "Behind The Curtain": the constant tension between safety and usefulness that AI companies navigate
+#### Chapter 8: Memory, Context, and Why AI Forgets
+- [Lesson 1: Context Windows — The Hard Memory Limit](part-02-the-invisible-infrastructure/chapter-08-memory-context-and-why-ai-forgets/lesson-01-context-windows-the-hard-memory-limit.md)
+- [Lesson 2: What Gets Kept and What Gets Dropped](part-02-the-invisible-infrastructure/chapter-08-memory-context-and-why-ai-forgets/lesson-02-what-gets-kept-and-what-gets-dropped.md)
+- [Lesson 3: Persistent Memory Systems](part-02-the-invisible-infrastructure/chapter-08-memory-context-and-why-ai-forgets/lesson-03-persistent-memory-systems.md)
+- [Lesson 4: RAG — Retrieval-Augmented Generation](part-02-the-invisible-infrastructure/chapter-08-memory-context-and-why-ai-forgets/lesson-04-rag-retrieval-augmented-generation.md)
+- [Lesson 5: Structuring Conversations for Better Memory](part-02-the-invisible-infrastructure/chapter-08-memory-context-and-why-ai-forgets/lesson-05-structuring-conversations-for-better-memory.md)
 
 ---
 
-### PART 5: THE GENERATION ENGINE — HOW WORDS ACTUALLY APPEAR
-What happens when the AI starts producing its response.
+### Part 3: The Attention Engine
 
-**Chapter 18: Word by Word — The Autoregressive Loop**
-- How the AI generates one token at a time
-- Each token is a decision influenced by: the entire prompt + system prompt + conversation history + every token generated so far
-- The probability distribution: for each position, the model ranks ~100,000 possible next tokens
-- How it "chooses" from that distribution
-- Why the first sentence of the response shapes everything after it
-- The commitment problem: once the AI starts down a path, it's hard to change course
-- "This Is Why...": the AI never gives the exact same response twice (unless temperature = 0)
-- "This Is Why...": asking the AI to "start with the conclusion" completely changes the response structure
-- "Pro Tip": give the AI the first few words or the format of the response you want — you're steering the autoregressive loop from the start
-- "Try This Now": start the same prompt with "Brief answer:" vs "Detailed analysis:" — watch how the opening completely determines what follows
+*The core mechanism that makes everything work — how the AI focuses.*
 
-**Chapter 19: The Creativity Dial — Temperature, Sampling, and Randomness**
-- Temperature: the knob between predictable and creative
-- Low temperature: picks the most likely token every time (focused, repetitive)
-- High temperature: more willing to pick surprising tokens (creative, sometimes chaotic)
-- Top-p and top-k: other ways to control the randomness
-- Why creative writing tasks need higher temperature and factual tasks need lower
-- The "best of N" approach: generate multiple responses and pick the best one
-- Beam search and other decoding strategies
-- "This Is Why...": the AI sometimes produces a surprisingly creative response and other times feels generic — the randomness settings differ
-- "This Is Why...": regenerating a response sometimes gives you a much better answer — you got a different sample from the probability distribution
-- "Try This Now": if your AI tool allows it, try the same prompt at different temperature settings
+#### Chapter 9: Attention — The Breakthrough
+- [Lesson 1: The Transformer in Plain English](part-03-the-attention-engine/chapter-09-attention-the-breakthrough/lesson-01-the-transformer-in-plain-english.md)
+- [Lesson 2: The Attention Mechanism Explained](part-03-the-attention-engine/chapter-09-attention-the-breakthrough/lesson-02-the-attention-mechanism-explained.md)
+- [Lesson 3: Multi-Head Attention — Parallel Perspectives](part-03-the-attention-engine/chapter-09-attention-the-breakthrough/lesson-03-multi-head-attention-parallel-perspectives.md)
+- [Lesson 4: Why Attention Changed Everything](part-03-the-attention-engine/chapter-09-attention-the-breakthrough/lesson-04-why-attention-changed-everything.md)
 
-**Chapter 20: When The AI Uses Tools — Search, Code, and Actions**
-- Tool use: the AI deciding it needs external help
-- The internal decision process: "Can I answer this from memory, or do I need tools?"
-- How the model decides WHICH tool to use:
-  - Web search for current information
-  - Code execution for computation
-  - File creation for deliverables
-  - API calls for specific data
-- The orchestration loop: generate → tool call → receive result → continue generating
-- Multi-step tool chains: search → read → search again → synthesize
-- Why tool use introduces latency, cost, and potential failure points
-- AI agents: the frontier where tools become autonomous workflows
-- "This Is Why...": sometimes the response takes much longer — the AI made several tool calls behind the scenes
-- "This Is Why...": the AI sometimes says "I'll search for that" — it determined its training data isn't reliable enough
-- "Try This Now": ask about today's news (forces search) vs. a timeless fact (answers from memory) — observe the difference in behavior and latency
+#### Chapter 10: The Attention Patterns
+- [Lesson 1: Types of Attention Heads](part-03-the-attention-engine/chapter-10-the-attention-patterns/lesson-01-types-of-attention-heads.md)
+- [Lesson 2: How AI Reads Non-Linearly](part-03-the-attention-engine/chapter-10-the-attention-patterns/lesson-02-how-ai-reads-non-linearly.md)
+- [Lesson 3: The Attention Map Visualized](part-03-the-attention-engine/chapter-10-the-attention-patterns/lesson-03-the-attention-map-visualized.md)
+- [Lesson 4: Why Word Order and Context Matter](part-03-the-attention-engine/chapter-10-the-attention-patterns/lesson-04-why-word-order-and-context-matter.md)
+
+#### Chapter 11: Layer by Layer — The 80-Story Building
+- [Lesson 1: Early Layers — Surface Parsing](part-03-the-attention-engine/chapter-11-layer-by-layer-the-80-story-building/lesson-01-early-layers-surface-parsing.md)
+- [Lesson 2: Middle Layers — Semantic Assembly](part-03-the-attention-engine/chapter-11-layer-by-layer-the-80-story-building/lesson-02-middle-layers-semantic-assembly.md)
+- [Lesson 3: Deep Layers — Reasoning and Planning](part-03-the-attention-engine/chapter-11-layer-by-layer-the-80-story-building/lesson-03-deep-layers-reasoning-and-planning.md)
+- [Lesson 4: Final Layers — Output Preparation](part-03-the-attention-engine/chapter-11-layer-by-layer-the-80-story-building/lesson-04-final-layers-output-preparation.md)
+- [Lesson 5: The Residual Stream and Information Flow](part-03-the-attention-engine/chapter-11-layer-by-layer-the-80-story-building/lesson-05-the-residual-stream-and-information-flow.md)
 
 ---
 
-### PART 6: THE QUALITY LAYER — POST-GENERATION PROCESSING
-What happens AFTER the AI generates its response but BEFORE you see it.
+### Part 4: The Hidden Thinking
 
-**Chapter 21: The Output Filter — Scanning The Response**
-- Output safety classifiers: specialized models scanning the generated text
-- What they check:
-  - Toxicity in the response
-  - PII leakage (did the model expose training data?)
-  - Copyright violation (did it reproduce copyrighted text?)
-  - Policy compliance (did it properly refuse what it should have?)
-  - Coherence (is the response nonsensical, repetitive, or truncated?)
-  - Language consistency (does it match the input language?)
-  - Factual consistency (do claims match cited sources?)
-- The response can be blocked, truncated, or sent back for regeneration
-- The reward model: a separate AI scoring the response for helpfulness and safety
-- "This Is Why...": occasionally the AI's response gets cut off or replaced — an output filter caught something
-- "Behind The Curtain": the latency you experience includes both generation time AND filter processing time
+*Reasoning, planning, and self-critique — what happens inside the "thinking" process.*
 
-**Chapter 22: The Feedback Loop — How Your Reactions Shape Future AI**
-- How thumbs up/down, regeneration, and conversation patterns become training data
-- The RLHF cycle: your preferences literally shape the next model version
-- A/B testing: companies testing different approaches on live users
-- Why the AI you use today is different from the AI six months ago
-- Red teaming: humans deliberately trying to break the AI to make it stronger
-- The continuous improvement pipeline
-- "Behind The Curtain": every conversation is a tiny data point in the next training run
+#### Chapter 12: The Thinking You Never See
+- [Lesson 1: Chain of Thought — The Hidden Scratchpad](part-04-the-hidden-thinking/chapter-12-the-thinking-you-never-see/lesson-01-chain-of-thought-the-hidden-scratchpad.md)
+- [Lesson 2: The Six Phases of Extended Thinking](part-04-the-hidden-thinking/chapter-12-the-thinking-you-never-see/lesson-02-the-six-phases-of-extended-thinking.md)
+- [Lesson 3: When Thinking Triggers and When It Doesn't](part-04-the-hidden-thinking/chapter-12-the-thinking-you-never-see/lesson-03-when-thinking-triggers-and-when-it-doesnt.md)
+- [Lesson 4: Thinking Time Versus Answer Quality](part-04-the-hidden-thinking/chapter-12-the-thinking-you-never-see/lesson-04-thinking-time-versus-answer-quality.md)
 
----
+#### Chapter 13: Intent Resolution
+- [Lesson 1: The Four Layers of Intent](part-04-the-hidden-thinking/chapter-13-intent-resolution/lesson-01-the-four-layers-of-intent.md)
+- [Lesson 2: Reading Intent Signals](part-04-the-hidden-thinking/chapter-13-intent-resolution/lesson-02-reading-intent-signals.md)
+- [Lesson 3: Ambiguity Resolution — Picking an Interpretation](part-04-the-hidden-thinking/chapter-13-intent-resolution/lesson-03-ambiguity-resolution-picking-an-interpretation.md)
+- [Lesson 4: When Intent Resolution Goes Wrong](part-04-the-hidden-thinking/chapter-13-intent-resolution/lesson-04-when-intent-resolution-goes-wrong.md)
 
-### PART 7: MASTERING THE MACHINE — PRACTICAL APPLICATION
-Now that you understand every hidden layer, here's how to use that knowledge.
+#### Chapter 14: The Internal Debate
+- [Lesson 1: Self-Consistency Checking](part-04-the-hidden-thinking/chapter-14-the-internal-debate/lesson-01-self-consistency-checking.md)
+- [Lesson 2: Confidence Calibration](part-04-the-hidden-thinking/chapter-14-the-internal-debate/lesson-02-confidence-calibration.md)
+- [Lesson 3: The Revision Loop — Draft, Critique, Revise](part-04-the-hidden-thinking/chapter-14-the-internal-debate/lesson-03-the-revision-loop-draft-critique-revise.md)
+- [Lesson 4: Why "Are You Sure?" Changes the Answer](part-04-the-hidden-thinking/chapter-14-the-internal-debate/lesson-04-why-are-you-sure-changes-the-answer.md)
 
-**Chapter 23: The Art of Asking — Prompt Engineering Through The Lens of Hidden Layers**
-- Reframing prompt engineering as "communicating effectively with a prediction engine"
-- How each hidden layer suggests a specific prompting strategy:
-  - Attention → put important information where the model will attend to it most
-  - Intent resolution → make all four layers of intent explicit
-  - Task decomposition → structure complex requests as the model would decompose them
-  - Self-critique → ask the model to evaluate its own output
-  - Autoregressive generation → steer the opening to shape everything that follows
-  - Intent stack → explicitly state your priorities and tradeoff preferences
-- The anatomy of an effective prompt: role, context, task, constraints, format, examples
-- Few-shot prompting: showing the AI what you want
-- The iterative approach: treating AI as a conversation, not a search engine
-- "Try This Now": take your worst AI interaction and rewrite the prompt applying every principle from this book
+#### Chapter 15: The Intent Stack
+- [Lesson 1: The Seven Simultaneous Layers](part-04-the-hidden-thinking/chapter-15-the-intent-stack/lesson-01-the-seven-simultaneous-layers.md)
+- [Lesson 2: How Layers Conflict and Resolve](part-04-the-hidden-thinking/chapter-15-the-intent-stack/lesson-02-how-layers-conflict-and-resolve.md)
+- [Lesson 3: RLHF and Learned Tradeoff Preferences](part-04-the-hidden-thinking/chapter-15-the-intent-stack/lesson-03-rlhf-and-learned-tradeoff-preferences.md)
+- [Lesson 4: Steering the Stack with Explicit Priorities](part-04-the-hidden-thinking/chapter-15-the-intent-stack/lesson-04-steering-the-stack-with-explicit-priorities.md)
 
-**Chapter 24: Patterns That Work — Templates for Real Tasks**
-- Writing and editing (emails, reports, creative content)
-- Research and analysis
-- Decision-making and brainstorming
-- Learning and tutoring
-- Code and technical work (even for non-programmers)
-- Data analysis and summarization
-- Strategic thinking and planning
-- Each pattern explained through the lens of which hidden layers it activates and why it works
+#### Chapter 16: Task Decomposition
+- [Lesson 1: How AI Converts Complex Requests to Subtasks](part-04-the-hidden-thinking/chapter-16-task-decomposition/lesson-01-how-ai-converts-complex-requests-to-subtasks.md)
+- [Lesson 2: The Decomposition Hierarchy](part-04-the-hidden-thinking/chapter-16-task-decomposition/lesson-02-the-decomposition-hierarchy.md)
+- [Lesson 3: Why Complex Requests Fail](part-04-the-hidden-thinking/chapter-16-task-decomposition/lesson-03-why-complex-requests-fail.md)
+- [Lesson 4: Structuring Requests for Complete Responses](part-04-the-hidden-thinking/chapter-16-task-decomposition/lesson-04-structuring-requests-for-complete-responses.md)
 
-**Chapter 25: The Limits and The Future**
-- What AI fundamentally cannot do — and why, based on its architecture
-- The gap between impressive performance and genuine understanding
-- Multimodal models: when AI can see, hear, and generate images
-- AI agents: autonomous AI that uses tools and takes actions
-- The scaling question: will bigger models solve current limitations?
-- Alternative architectures on the horizon
-- What the next 5 years probably look like for AI users
-- How to stay effective as AI evolves
-
-**Chapter 26: Building Your AI Workflow**
-- Choosing the right AI for the right task
-- When to use AI and when not to
-- Building repeatable workflows
-- Creating personal system prompts and custom instructions
-- Evaluating AI output quality systematically
-- Staying current as models improve
-- The human-AI collaboration mindset
+#### Chapter 17: Policy Reasoning
+- [Lesson 1: The Safety Spectrum](part-04-the-hidden-thinking/chapter-17-policy-reasoning/lesson-01-the-safety-spectrum.md)
+- [Lesson 2: The Refusal Decision Tree](part-04-the-hidden-thinking/chapter-17-policy-reasoning/lesson-02-the-refusal-decision-tree.md)
+- [Lesson 3: The Over-Refusal Problem](part-04-the-hidden-thinking/chapter-17-policy-reasoning/lesson-03-the-over-refusal-problem.md)
+- [Lesson 4: Context as a Key — Unlocking Refused Requests](part-04-the-hidden-thinking/chapter-17-policy-reasoning/lesson-04-context-as-a-key-unlocking-refused-requests.md)
 
 ---
 
-### APPENDICES
+### Part 5: The Generation Engine
 
-**Appendix A: Complete Glossary**
-- Every technical term in the book, defined in one plain-English sentence
+*How words actually appear — the mechanics of response creation.*
 
-**Appendix B: The Complete Hidden Layer Map**
-- A visual flowchart showing every classifier, reasoning step, and processing layer from input to output
-- One-page reference the reader can keep at their desk
+#### Chapter 18: Word by Word
+- [Lesson 1: The Autoregressive Loop Explained](part-05-the-generation-engine/chapter-18-word-by-word/lesson-01-the-autoregressive-loop-explained.md)
+- [Lesson 2: The Probability Distribution at Each Step](part-05-the-generation-engine/chapter-18-word-by-word/lesson-02-the-probability-distribution-at-each-step.md)
+- [Lesson 3: The Commitment Problem](part-05-the-generation-engine/chapter-18-word-by-word/lesson-03-the-commitment-problem.md)
+- [Lesson 4: Steering Generation with Opening Words](part-05-the-generation-engine/chapter-18-word-by-word/lesson-04-steering-generation-with-opening-words.md)
 
-**Appendix C: Quick Reference Prompt Patterns**
-- One-page cheat sheet of the most effective prompting strategies organized by task type
+#### Chapter 19: The Creativity Dial
+- [Lesson 1: Temperature — Predictable Versus Creative](part-05-the-generation-engine/chapter-19-the-creativity-dial/lesson-01-temperature-predictable-versus-creative.md)
+- [Lesson 2: Top-p, Top-k, and Sampling Strategies](part-05-the-generation-engine/chapter-19-the-creativity-dial/lesson-02-top-p-top-k-and-sampling-strategies.md)
+- [Lesson 3: Beam Search and Best-of-N](part-05-the-generation-engine/chapter-19-the-creativity-dial/lesson-03-beam-search-and-best-of-n.md)
+- [Lesson 4: Matching Randomness to Your Task](part-05-the-generation-engine/chapter-19-the-creativity-dial/lesson-04-matching-randomness-to-your-task.md)
 
-**Appendix D: Further Reading**
-- Curated reading list for readers who want to go deeper on specific topics
-- Organized by difficulty: accessible → intermediate → technical
+#### Chapter 20: When the AI Uses Tools
+- [Lesson 1: The Tool Use Decision Process](part-05-the-generation-engine/chapter-20-when-the-ai-uses-tools/lesson-01-the-tool-use-decision-process.md)
+- [Lesson 2: The Orchestration Loop](part-05-the-generation-engine/chapter-20-when-the-ai-uses-tools/lesson-02-the-orchestration-loop.md)
+- [Lesson 3: Multi-Step Tool Chains](part-05-the-generation-engine/chapter-20-when-the-ai-uses-tools/lesson-03-multi-step-tool-chains.md)
+- [Lesson 4: AI Agents — Autonomous Workflows](part-05-the-generation-engine/chapter-20-when-the-ai-uses-tools/lesson-04-ai-agents-autonomous-workflows.md)
 
 ---
 
-## Cross-Chapter Narrative Threads
-Maintain these recurring elements throughout the book for coherence:
+### Part 6: The Quality Layer
 
-1. **The Restaurant Analogy**: Use throughout — the system prompt as the kitchen's standing orders, classifiers as health inspectors, the model as the chef, tokens as ingredients, attention as the chef reading the entire order before cooking, the thinking scratchpad as the chef's mental planning
-2. **The "X-Ray Vision" Metaphor**: The reader is gaining the ability to see inside every AI conversation
-3. **Running Example**: Use a single complex prompt (e.g., "Help me plan a career change from accounting to UX design") and revisit it in every Part, showing how each hidden layer processes it differently
-4. **The "Before and After" Pattern**: In each chapter, show a bad prompt and a good prompt — with the improvement explained by the hidden layer just discussed
+*Post-generation processing — what happens after the AI writes but before you read.*
 
-## Process
-When I ask you to write a chapter, you will:
-1. First propose a detailed outline including:
-   - All analogies and metaphors you plan to use
-   - All "This Is Why...", "Behind The Curtain", "Pro Tip", and "Try This Now" boxes
-   - The running example application for this chapter
-   - How this chapter connects to the previous and next chapters
-2. Wait for my feedback and approval
-3. Write the full chapter (5,000-8,000 words)
-4. I will review and we iterate
+#### Chapter 21: The Output Filter
+- [Lesson 1: Output Safety Classifiers](part-06-the-quality-layer/chapter-21-the-output-filter/lesson-01-output-safety-classifiers.md)
+- [Lesson 2: What the Filters Check](part-06-the-quality-layer/chapter-21-the-output-filter/lesson-02-what-the-filters-check.md)
+- [Lesson 3: The Reward Model — Scoring Responses](part-06-the-quality-layer/chapter-21-the-output-filter/lesson-03-the-reward-model-scoring-responses.md)
+- [Lesson 4: Blocked, Truncated, or Regenerated](part-06-the-quality-layer/chapter-21-the-output-filter/lesson-04-blocked-truncated-or-regenerated.md)
 
-When I ask for revisions, maintain consistency with previously written chapters in tone, recurring analogies, narrative threads, and the running example.
+#### Chapter 22: The Feedback Loop
+- [Lesson 1: How Your Reactions Become Training Data](part-06-the-quality-layer/chapter-22-the-feedback-loop/lesson-01-how-your-reactions-become-training-data.md)
+- [Lesson 2: The RLHF Cycle Explained](part-06-the-quality-layer/chapter-22-the-feedback-loop/lesson-02-the-rlhf-cycle-explained.md)
+- [Lesson 3: A/B Testing and Red Teaming](part-06-the-quality-layer/chapter-22-the-feedback-loop/lesson-03-ab-testing-and-red-teaming.md)
+- [Lesson 4: The Continuous Improvement Pipeline](part-06-the-quality-layer/chapter-22-the-feedback-loop/lesson-04-the-continuous-improvement-pipeline.md)
 
-Begin by confirming you understand the structure, then ask me which chapter I'd like to start with, or suggest which chapter would be the strongest starting point and why.
+---
+
+### Part 7: Mastering the Machine
+
+*Practical application — now that you understand every hidden layer, here's how to use that knowledge.*
+
+#### Chapter 23: The Art of Asking
+- [Lesson 1: Prompt Engineering Through Hidden Layers](part-07-mastering-the-machine/chapter-23-the-art-of-asking/lesson-01-prompt-engineering-through-hidden-layers.md)
+- [Lesson 2: The Anatomy of an Effective Prompt](part-07-mastering-the-machine/chapter-23-the-art-of-asking/lesson-02-the-anatomy-of-an-effective-prompt.md)
+- [Lesson 3: Few-Shot Prompting — Showing What You Want](part-07-mastering-the-machine/chapter-23-the-art-of-asking/lesson-03-few-shot-prompting-showing-what-you-want.md)
+- [Lesson 4: The Iterative Approach — Conversation, Not Search](part-07-mastering-the-machine/chapter-23-the-art-of-asking/lesson-04-the-iterative-approach-conversation-not-search.md)
+
+#### Chapter 24: Patterns That Work
+- [Lesson 1: Writing, Editing, and Creative Content](part-07-mastering-the-machine/chapter-24-patterns-that-work/lesson-01-writing-editing-and-creative-content.md)
+- [Lesson 2: Research, Analysis, and Decision-Making](part-07-mastering-the-machine/chapter-24-patterns-that-work/lesson-02-research-analysis-and-decision-making.md)
+- [Lesson 3: Learning, Tutoring, and Code Tasks](part-07-mastering-the-machine/chapter-24-patterns-that-work/lesson-03-learning-tutoring-and-code-tasks.md)
+- [Lesson 4: Data Analysis and Summarization](part-07-mastering-the-machine/chapter-24-patterns-that-work/lesson-04-data-analysis-and-summarization.md)
+- [Lesson 5: Strategic Thinking and Planning](part-07-mastering-the-machine/chapter-24-patterns-that-work/lesson-05-strategic-thinking-and-planning.md)
+
+#### Chapter 25: The Limits and the Future
+- [Lesson 1: What AI Fundamentally Cannot Do](part-07-mastering-the-machine/chapter-25-the-limits-and-the-future/lesson-01-what-ai-fundamentally-cannot-do.md)
+- [Lesson 2: Multimodal Models — Seeing and Hearing](part-07-mastering-the-machine/chapter-25-the-limits-and-the-future/lesson-02-multimodal-models-seeing-and-hearing.md)
+- [Lesson 3: Agents and Autonomous AI](part-07-mastering-the-machine/chapter-25-the-limits-and-the-future/lesson-03-agents-and-autonomous-ai.md)
+- [Lesson 4: The Next Five Years and Staying Effective](part-07-mastering-the-machine/chapter-25-the-limits-and-the-future/lesson-04-the-next-five-years-and-staying-effective.md)
+
+#### Chapter 26: Building Your AI Workflow
+- [Lesson 1: Choosing the Right AI for the Right Task](part-07-mastering-the-machine/chapter-26-building-your-ai-workflow/lesson-01-choosing-the-right-ai-for-the-right-task.md)
+- [Lesson 2: Building Repeatable Workflows](part-07-mastering-the-machine/chapter-26-building-your-ai-workflow/lesson-02-building-repeatable-workflows.md)
+- [Lesson 3: Creating Personal System Prompts](part-07-mastering-the-machine/chapter-26-building-your-ai-workflow/lesson-03-creating-personal-system-prompts.md)
+- [Lesson 4: The Human-AI Collaboration Mindset](part-07-mastering-the-machine/chapter-26-building-your-ai-workflow/lesson-04-the-human-ai-collaboration-mindset.md)
+
+---
+
+### Appendices
+
+- [Appendix A: Complete Glossary](appendices/appendix-a-complete-glossary.md)
+- [Appendix B: The Complete Hidden Layer Map](appendices/appendix-b-the-complete-hidden-layer-map.md)
+- [Appendix C: Quick Reference — Prompt Patterns](appendices/appendix-c-quick-reference-prompt-patterns.md)
+- [Appendix D: Further Reading](appendices/appendix-d-further-reading.md)
+
+---
+
+*7 Parts. 26 Chapters. 111 Lessons. One complete journey from "I type and it answers" to "I understand every hidden layer in between."*
